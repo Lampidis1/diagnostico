@@ -33,3 +33,12 @@ export type DiagnosticPayload = {
   contactConsent: string;
   comments: string;
 };
+
+export type AdminUserListItem = {
+  id: string;
+  email: string;
+  name: string;
+  role: "admin" | "viewer";
+  active: boolean;
+  created_at: string;
+};

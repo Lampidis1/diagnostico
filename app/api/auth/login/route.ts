@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const { email, password } = await request.json() as { email?: string; password?: string };
     if (!email || !password) return NextResponse.json({ error: "Credenciales incompletas" }, { status: 400 });
     const sql = getSql();
-    const rows = await sql`SELECT id,email,name,role,password_hash FROM admin_users WHERE email = ${email.trim().toLowerCase()} LIMIT 1`;
+    const rows = await sql`SELECT id,email,name,role,password_hash FROM admin_users WHERE email = ${email.trim().toLowerCase()} AND active = TRUE LIMIT 1`;
     const user = rows[0];
     if (!user || !await bcrypt.compare(password, String(user.password_hash))) return NextResponse.json({ error: "Correo o contraseña incorrectos" }, { status: 401 });
     const token = await createSession({ id: String(user.id), email: String(user.email), name: String(user.name), role: user.role === "viewer" ? "viewer" : "admin" });

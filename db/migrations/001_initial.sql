@@ -6,8 +6,11 @@ CREATE TABLE IF NOT EXISTS admin_users (
   password_hash TEXT NOT NULL,
   name TEXT NOT NULL DEFAULT 'Administrador',
   role TEXT NOT NULL DEFAULT 'admin' CHECK (role IN ('admin', 'viewer')),
+  active BOOLEAN NOT NULL DEFAULT TRUE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE admin_users ADD COLUMN IF NOT EXISTS active BOOLEAN NOT NULL DEFAULT TRUE;
 
 CREATE TABLE IF NOT EXISTS diagnostic_responses (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

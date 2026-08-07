@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { jwtVerify, SignJWT } from "jose";
+import { getSql } from "@/lib/db";
 
 export type SessionUser = { id: string; email: string; name: string; role: "admin" | "viewer" };
 const COOKIE = "empleabilidad_session";
@@ -20,7 +21,11 @@ export async function getSession(): Promise<SessionUser | null> {
   if (!token) return null;
   try {
     const { payload } = await jwtVerify(token, secret());
-    return { id: String(payload.id), email: String(payload.email), name: String(payload.name), role: payload.role === "viewer" ? "viewer" : "admin" };
+    const sql = getSql();
+    const rows = await sql`SELECT id,email,name,role FROM admin_users WHERE id = ${String(payload.id)} AND active = TRUE LIMIT 1`;
+    const user = rows[0];
+    if (!user) return null;
+    return { id: String(user.id), email: String(user.email), name: String(user.name), role: user.role === "viewer" ? "viewer" : "admin" };
   } catch { return null; }
 }
 
