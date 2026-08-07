@@ -1,0 +1,17 @@
+.auth-page { min-height: 100vh; display: grid; place-items: center; position: relative; overflow: hidden; padding: 30px; background: #104b5e; }
+.auth-watermark { position: absolute; right: 4%; bottom: -6%; color: rgba(255,255,255,.05); font-size: min(20vw,260px); font-weight: 200; letter-spacing: -.2em; transform: scaleY(1.8); }
+.auth-card { width: min(430px, 100%); background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 70px rgba(0,0,0,.2); z-index: 1; }
+.auth-card__body { padding: 43px 38px 38px; text-align: center; }
+.auth-card img { height: auto; }
+.auth-program { color: var(--teal); font-size: 9px; margin: 22px 0 32px; }
+.auth-eyebrow { color: var(--teal-mid); font-size: 8px; margin: 0 0 12px; }
+.auth-card h1 { color: var(--teal-ink); font-size: 22px; margin: 0 0 30px; }
+.login-form { text-align: left; }
+.login-form label { display: block; margin-bottom: 17px; }
+.login-form input { height: 51px; }
+.login-form button { width: 100%; border: 0; border-radius: 10px; padding: 15px; background: #287c98; color: white; font-weight: 700; margin-top: 2px; }
+.login-form button:disabled { opacity: .6; }
+.login-error { color: #9b3218; background: #fff1ed; border-radius: 8px; padding: 9px 10px; font-size: 12px; }
+.auth-help { color: var(--muted); font-size: 12px; margin: 23px 0 18px; }
+.back-link { color: var(--teal-mid); font-size: 12px; font-weight: 600; }
+@media(max-width:480px){.auth-page{padding:16px}.auth-card__body{padding:34px 24px}}
