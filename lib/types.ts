@@ -42,3 +42,13 @@ export type AdminUserListItem = {
   active: boolean;
   created_at: string;
 };
+
+export type EmailCampaignListItem = {
+  id: string;
+  subject: string;
+  template: string;
+  recipient_count: number;
+  status: "sent" | "failed";
+  error: string | null;
+  created_at: string;
+};

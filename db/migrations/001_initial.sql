@@ -52,8 +52,20 @@ CREATE TABLE IF NOT EXISTS demanded_profiles (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS email_campaigns (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_by UUID NOT NULL REFERENCES admin_users(id),
+  subject TEXT NOT NULL,
+  template TEXT NOT NULL DEFAULT 'custom',
+  recipient_count INTEGER NOT NULL CHECK (recipient_count > 0 AND recipient_count <= 100),
+  status TEXT NOT NULL CHECK (status IN ('sent', 'failed')),
+  error TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE INDEX IF NOT EXISTS diagnostic_responses_created_at_idx ON diagnostic_responses(created_at DESC);
 CREATE INDEX IF NOT EXISTS diagnostic_responses_company_idx ON diagnostic_responses(company);
 CREATE INDEX IF NOT EXISTS diagnostic_responses_commune_idx ON diagnostic_responses(commune);
 CREATE INDEX IF NOT EXISTS demanded_profiles_response_id_idx ON demanded_profiles(response_id);
 CREATE INDEX IF NOT EXISTS demanded_profiles_name_idx ON demanded_profiles(name);
+CREATE INDEX IF NOT EXISTS email_campaigns_created_at_idx ON email_campaigns(created_at DESC);
